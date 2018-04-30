@@ -4,7 +4,7 @@ __pycache__
 myvenv
 db.sqlite3
 /static
-/app/static
+/app/static/media/
 .vscode
 .git
 .DS_Store
