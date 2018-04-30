@@ -10,21 +10,21 @@ from .forms import UserForm
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 def homepage(request):
     if 'username' not in request.session:
-        return render(request, 'blog/login.html', {})
-    return render(request,'blog/homepage.html')
+        return render(request, 'app/login.html', {})
+    return render(request,'app/homepage.html')
 
 
 def post_list(request):
     #to check the session.
     if 'username' not in request.session:
-        return render(request, 'blog/login.html', {})
+        return render(request, 'app/login.html', {})
     #sub_folder_path = request.GET.get('sub_folder_path')
     #current_url = resolve(request.path_info).url_name
     #sub_folder_path = current_url
 
     current_url = request.path
     sub_folder_path = current_url 
-    static_folder_path = "/home/admin1/Desktop/django_test2/blog/static"
+    static_folder_path = "/home/admin1/Desktop/django_test2/app/static"
 
     if sub_folder_path is not None :
         static_folder_path = static_folder_path + sub_folder_path 
@@ -42,8 +42,8 @@ def post_list(request):
                 file_list.append(child)
     else:
         file_loc = settings.STATIC_URL[:-1] +  current_url
-        return render(request, 'blog/play_video.html', {"file_loc": file_loc})           
-    return render(request, 'blog/post_list.html', {"file_list": file_list, "dir_list": dir_list, "username": request.session['username'], })
+        return render(request, 'app/play_video.html', {"file_loc": file_loc})           
+    return render(request, 'app/post_list.html', {"file_list": file_list, "dir_list": dir_list, "username": request.session['username'], })
 #to authenticate an authorized user.
 def login(request):
     username = 'not logged in'
@@ -57,19 +57,19 @@ def login(request):
                 request.session.set_expiry(0)
         else:
             userform = UserForm()
-    return render(request, "blog/homepage.html",{"username": username})
+    return render(request, "app/homepage.html",{"username": username})
 
 #to take username and password from user
 def formView(request):
    if request.session.has_key('username'):
       username = request.session['username']
-      return render(request, 'blog/homepage.html', {"username": username})
+      return render(request, 'app/homepage.html', {"username": username})
    else:
-      return render(request, 'blog/login.html', {})
+      return render(request, 'app/login.html', {})
 #to drop the session
 def logout(request):
     try:
         del request.session['username']
     except:
         pass
-    return render(request,"blog/login.html",{})
+    return render(request,"app/login.html",{})
