@@ -1,0 +1,53 @@
+<html>
+
+
+<style>
+    #qp {
+        color: rgb(211, 182, 16);
+    }
+    .abc{
+        color: rgb(60, 255, 0);
+    }
+    .abc1{
+        color: rgb(255, 0, 0);
+    }
+
+    body {
+    background-color: rgb(229, 228, 235);
+}
+
+</style>
+
+<body>
+     {% block bar %} {% include "blog/nav.html"%} {% endblock %}
+    <h1 style="color:rgb(236, 60, 16)"> SubFolders</h1>
+    
+    {% for child2 in dir_list %}
+    
+    <p>
+        <a href="{{request.path}}\{{child2}}">
+            {{child2}}</a>
+    </p>
+    {% endfor %}
+   
+    <hr>
+    <h1 style="color:rgb(255, 60, 0)"> Files</h1>
+
+     {% load static %}
+
+    {% for child in file_list  %}
+
+           <!-- <p> <a href="{% static child %}"> {{child}}</a></p> -->
+            <p> <a href="{{request.path}}\{{child}}"> {{child}}</a></p>
+       {% endfor %}
+
+   
+</body>
+
+<script>
+
+    document.getElementById("qp").innerHTML = "abc";
+</script>
+
+
+</html>
